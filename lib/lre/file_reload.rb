@@ -20,6 +20,9 @@ module FileReload
     rescue => exp
       puts "error loading #{f}"
       puts exp.message + "\n" + exp.backtrace.join("\n")
+    rescue SyntaxError => exp
+      puts "syntax error loading #{f}"
+      puts exp.message + "\n" + exp.backtrace.join("\n")
     end
     def run!
       require 'watchr'
@@ -29,6 +32,9 @@ module FileReload
         f = md[0]
         reload_file(f)
       end
+      
+      self.threads.each { |x| x.kill }
+      self.threads = []
       
       LRE.watch_dirs.each do |d|
         c = Watchr::Controller.new(script, Watchr.handler.new)
