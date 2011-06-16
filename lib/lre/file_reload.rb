@@ -24,6 +24,10 @@ module FileReload
       puts "syntax error loading #{f}"
       puts exp.message + "\n" + exp.backtrace.join("\n")
     end
+    def stop!
+      self.threads.each { |x| x.kill }
+      self.threads = []
+    end
     def run!
       require 'watchr'
       require 'pathname'

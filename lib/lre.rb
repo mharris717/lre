@@ -24,5 +24,8 @@ module LRE
       require 'irb'
       IRB.start
     end
+    def stop!
+      FileReload.stop!
+    end
   end
 end
