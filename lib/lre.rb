@@ -12,11 +12,7 @@ module LRE
     def load_config!
       dir = Dir.getwd
       config_file = "#{dir}/.lre"
-      #Thread.new do 
-        puts "starting config load"
-        load(config_file) 
-        puts "loaded config"
-      #end if FileTest.exist?(config_file)
+      load(config_file) 
     end
     def start!
       load_config!
@@ -26,6 +22,9 @@ module LRE
     end
     def stop!
       FileReload.stop!
+    end
+    def watch(pattern,&b)
+      FileReload.watches[pattern] = b
     end
   end
 end
