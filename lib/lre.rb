@@ -12,7 +12,7 @@ module LRE
     def load_config!
       dir = Dir.getwd
       config_file = "#{dir}/.lre"
-      load(config_file) 
+      load(config_file) if FileTest.exists?(config_file)
     end
     def start!
       load_config!
