@@ -10,9 +10,10 @@ module LRE
       ["."]
     end
     def load_config!
-      dir = Dir.getwd
-      config_file = "#{dir}/.lre"
-      load(config_file) if FileTest.exists?(config_file)
+      config_files = ["~/.lre","#{Dir.getwd}/.lre"]
+      config_files.each do |f|
+        load(f) if FileTest.exists?(f)
+      end
     end
     def start!
       load_config!

@@ -8,13 +8,13 @@ module FileReload
     end
     attr_accessor :script
     fattr(:threads) { [] }
-    def reload_file(f)
+    def process_file(f,&b)
       if !FileTest.exists?(f)
         puts "file doesn't exist #{f}"
         return
       end
       puts "loading #{f}"
-      load f 
+      b[f]
       print ">"
     rescue => exp
       puts "error loading #{f}"
@@ -22,6 +22,9 @@ module FileReload
     rescue SyntaxError => exp
       puts "syntax error loading #{f}"
       puts exp.message + "\n" + exp.backtrace.join("\n")
+    rescue RuntimeError => exp
+      puts "runtime error"
+      puts exp.message
     end
     def stop!
       self.threads.each { |x| x.kill }
@@ -30,7 +33,7 @@ module FileReload
     fattr(:watches) do
       res = {}
       res[".*\.rb$"] = lambda do |f|
-        reload_file(f)
+        load f
       end
       res
     end
@@ -40,7 +43,8 @@ module FileReload
       self.script = Watchr::Script.new
       watches.each do |file_match,proc|
         script.watch(file_match) do |md|
-          proc[md[0]]
+          f = md[0]
+          process_file(f,&proc)
         end
       end
       
