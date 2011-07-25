@@ -48,3 +48,14 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+task :make_readme do
+  require 'github/markup'
+  require 'mharris_ext'
+  
+  loop do
+    str = GitHub::Markup.render("README.md")
+    File.create("README.html",str)
+    sleep(0.5)
+  end
+end

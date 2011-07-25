@@ -5,6 +5,7 @@ GEM
     facets (2.9.1)
     fattr (2.2.0)
     git (1.2.5)
+    github-markup (0.5.3)
     jeweler (1.5.2)
       bundler (~> 1.0.0)
       git (>= 1.2.5)
@@ -14,6 +15,7 @@ GEM
       fattr
     rake (0.8.7)
     rcov (0.9.9)
+    rdiscount (1.6.8)
     rspec (2.3.0)
       rspec-core (~> 2.3.0)
       rspec-expectations (~> 2.3.0)
@@ -30,9 +32,11 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.0.0)
   fattr
+  github-markup
   jeweler (~> 1.5.2)
   mharris_ext
   rake
   rcov
+  rdiscount
   rspec (~> 2.3.0)
   watchr

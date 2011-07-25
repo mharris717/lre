@@ -9,6 +9,11 @@ module LRE
     fattr(:watch_dirs) do
       ["."]
     end
+    def add_watch_dir(*ds)
+      [ds].flatten.each do |d|
+        self.watch_dirs << d
+      end
+    end
     def load_config!
       config_files = ["~/.lre","#{Dir.getwd}/.lre"]
       config_files.each do |f|
