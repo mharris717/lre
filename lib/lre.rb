@@ -20,11 +20,17 @@ module LRE
         load(f) if FileTest.exists?(f)
       end
     end
+    def start_irb!
+      return if @start_irb
+      require 'irb'
+      @start_irb = true
+      IRB.start
+    end
     def start!
       load_config!
       FileReload.run!
-      require 'irb'
-      IRB.start
+      
+      start_irb!
     end
     def stop!
       FileReload.stop!
