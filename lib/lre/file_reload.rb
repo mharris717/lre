@@ -6,13 +6,14 @@ module FileReload
     class << self
       fattr(:instance) { new }
     end
-    attr_accessor :script
+    attr_accessor :script, :on_every_file
     fattr(:threads) { [] }
     def process_file(f,&b)
       if !FileTest.exists?(f)
         puts "file doesn't exist #{f}"
         return
       end
+      on_every_file[File.expand_path(f)] if on_every_file
       puts "loading #{f}"
       b[f]
       print ">"

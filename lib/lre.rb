@@ -26,6 +26,14 @@ module LRE
       @start_irb = true
       IRB.start
     end
+    def from_cli!(f)
+      if f
+        load_config!
+        load(f)
+      else
+        start!
+      end
+    end
     def start!
       load_config!
       FileReload.run!
@@ -37,6 +45,9 @@ module LRE
     end
     def watch(pattern,&b)
       FileReload.watches[pattern] = b
+    end
+    def on_every_file(&b)
+      FileReload.on_every_file = b
     end
   end
 end
