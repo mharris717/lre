@@ -10,6 +10,6 @@ group :development do
 end
 
 gem 'fattr'
-gem 'rake'
+#gem 'rake'
 gem 'watchr'
 gem 'mharris_ext'
