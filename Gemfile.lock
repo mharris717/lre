@@ -13,7 +13,7 @@ GEM
     mharris_ext (1.5.0)
       facets
       fattr
-    rake (0.8.7)
+    rake (0.9.2)
     rcov (0.9.9)
     rdiscount (1.6.8)
     rspec (2.3.0)
@@ -35,7 +35,6 @@ DEPENDENCIES
   github-markup
   jeweler (~> 1.5.2)
   mharris_ext
-  rake
   rcov
   rdiscount
   rspec (~> 2.3.0)
