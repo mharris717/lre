@@ -49,5 +49,12 @@ module LRE
     def on_every_file(&b)
       FileReload.on_every_file = b
     end
+    def name(n=nil)
+      if n
+        FileReload.instance_name = n
+      else
+        FileReload.instance_name
+      end
+    end
   end
 end

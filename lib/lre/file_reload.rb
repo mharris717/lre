@@ -6,16 +6,35 @@ module FileReload
     class << self
       fattr(:instance) { new }
     end
-    attr_accessor :script, :on_every_file
+    attr_accessor :script, :on_every_file, :instance_name
     fattr(:threads) { [] }
+    def should_load?(f)
+      str = File.read(f)
+      if str =~ /--dontload({.+})?/
+        if !$1
+          false
+        else
+          n = $1[1..-2]
+          !(instance_name.to_s == n)
+        end
+      elsif str =~ /--onlyload{(.+)}/
+        $1 == instance_name.to_s
+      else
+        true
+      end
+    end
     def process_file(f,&b)
       if !FileTest.exists?(f)
         puts "file doesn't exist #{f}"
         return
       end
-      on_every_file[File.expand_path(f)] if on_every_file
-      puts "loading #{f}"
-      b[f]
+      if should_load?(f)
+        on_every_file[File.expand_path(f)] if on_every_file
+        puts "loading #{f}"
+        b[f]
+      else
+        puts "didn't load #{f}"
+      end
       print ">"
     rescue => exp
       puts "error loading #{f}"
