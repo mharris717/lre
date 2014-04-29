@@ -1,6 +1,6 @@
 require 'rake'
 require 'fattr'
-%w(file_reload rake_ext).each do |f|
+%w(file_reload rake_ext watchr_ext).each do |f|
   require File.expand_path(File.dirname(__FILE__)) + "/lre/#{f}.rb"
 end
 
